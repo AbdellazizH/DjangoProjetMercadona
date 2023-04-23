@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Supprimer la promotion "{{ promotion.title }}"</h1>
+  <form method="post">
+    {% csrf_token %}
+    <p class="text-danger"><strong>Êtes-vous sûr de vouloir supprimer cette promotion?</strong></p>
+    <div class="form-group">
+      <button type="submit" class="btn btn-danger">Supprimer</button>
+      <a href="{% url 'backoffice:promotion_detail' promotion.pk %}" class="btn btn-secondary">Annuler</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

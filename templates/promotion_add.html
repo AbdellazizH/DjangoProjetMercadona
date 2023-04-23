@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mb-4">Ajouter une promotion</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="product">Produit :</label>
+      <select class="form-control" id="product" name="product">
+        {% for product in products %}
+        <option value="{{ product.id }}">{{ product.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="discount">Pourcentage de remise :</label>
+      <input type="number" class="form-control" id="discount" name="discount" required>
+    </div>
+    <div class="form-group">
+      <label for="start_date">Date de début :</label>
+      <input type="date" class="form-control" id="start_date" name="start_date" required>
+    </div>
+    <div class="form-group">
+      <label for="end_date">Date de fin :</label>
+      <input type="date" class="form-control" id="end_date" name="end_date" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter la promotion</button>
+  </form>
+</div>
+{% endblock %}

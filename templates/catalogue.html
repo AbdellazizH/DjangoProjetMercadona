@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Catalogue des produits</h1>
+
+  <form method="GET" class="mb-4">
+    <div class="form-group">
+      <label for="category-filter">Filtrer par catégorie :</label>
+      <select name="category" class="form-control" id="category-filter">
+        <option value="">Toutes les catégories</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+  </form>
+
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.label }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.label }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text">Prix : {% if product.promotion %}<del>{{ product.price }} €</del> {{ product.get_discounted_price }} €{% else %}{{ product.price }} €{% endif %}</p>
+            {% if product.promotion %}
+              <p class="card-text text-danger"><strong>Promotion : -{{ product.promotion.discount_percent }}%</strong></p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-md-12">
+        <p>Aucun produit disponible.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

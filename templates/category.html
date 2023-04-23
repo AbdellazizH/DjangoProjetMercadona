@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Liste des catégories</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+          <tr>
+            <th scope="row">{{ category.id }}</th>
+            <td>{{ category.name }}</td>
+            <td>
+              <a href="{% url 'backoffice:category_edit' category.id %}" class="btn btn-primary btn-sm">Modifier</a>
+              <a href="{% url 'backoffice:category_delete' category.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'backoffice:category_add' %}" class="btn btn-success">Ajouter une catégorie</a>
+  </div>
+{% endblock %}

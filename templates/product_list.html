@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Liste des produits</h1>
+  <a href="{% url 'backoffice:product_add' %}" class="btn btn-primary mb-3">Ajouter un produit</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }} €</td>
+          <td>
+            <a href="{% url 'backoffice:product_edit' product.id %}" class="btn btn-sm btn-primary">Modifier</a>
+            <a href="{% url 'backoffice:product_delete' product.id %}" class="btn btn-sm btn-danger">Supprimer</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">Aucun produit n'a été trouvé.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
